@@ -32,7 +32,7 @@ function ListCard() {
                     <h2 class="mb-4 font-bold text-xl text-gray-600">Tất cả các khóa học sẽ được hiển thị ở đây</h2>
                     <div class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
                         {
-                            Course && Course.map((index) => (
+                            Course.length>0 && Course.map((index) => (
                                 <CardCourse course={index}></CardCourse>
                             ))
                         }
