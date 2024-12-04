@@ -21,9 +21,7 @@ function ListCardBlog() {
             bl.sort((a,b)=>b.datePost - a.datePost);
             setBlogs(bl);
         });
-        return () => {
-            unsubscribe();
-        }
+        unsubscribe();
     }, [])
     return (
         <div>
