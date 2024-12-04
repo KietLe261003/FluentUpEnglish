@@ -16,29 +16,29 @@ function ListCardBlog() {
         const interval = setInterval(() => {
             setCounter(item => item >= 2 ? 0 : item + 1);
         }, 1000);
-        //const q = query(collection(db, "blogs"), where("title", "!=", ""));
-        // const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
-        //     const bl = [];
-        //     querySnapshot.forEach( async (it) => {
-        //         bl.push(it.data());
-        //     });
-        //     console.log(bl);
-        //     bl.sort((a,b)=>b.datePost - a.datePost);
-        //     setBlogs(bl);
-        // });
-        const unSub = async () =>{
-            const c=[];
-            const q= query(collection(db,"blogs"));
-            const data= await getDocs(q);
-            data.forEach((index)=>{
-                c.push(index.data());
-            })
-            console.log(c);
-            setBlogs(c);
-        }
+        const q = query(collection(db, "blogs"), where("title", "!=", ""));
+        const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
+            const bl = [];
+            querySnapshot.forEach( async (it) => {
+                bl.push(it.data());
+            });
+            console.log(bl);
+            bl.sort((a,b)=>b.datePost - a.datePost);
+            setBlogs(bl);
+        });
+        // const unSub = async () =>{
+        //     const c=[];
+        //     const q= query(collection(db,"blogs"));
+        //     const data= await getDocs(q);
+        //     data.forEach((index)=>{
+        //         c.push(index.data());
+        //     })
+        //     console.log(c);
+        //     setBlogs(c);
+        // }
         return ()=>{
-            unSub();
-            //unsubscribe();
+            //unSub();
+            unsubscribe();
             clearInterval(interval);
         }
     }, [counter])
