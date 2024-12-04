@@ -137,7 +137,7 @@ function CardBlog(props) {
                 </div>
                 <img alt="logo" width="420" height="120" src="https://cdn.dribbble.com/userupload/2338354/file/original-ae1855a82a249b8522e6d62be6351828.png?resize=752x" />
             </div>
-            <figcaption class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
+            {/* <figcaption class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
                 {
                     user && <>
                     <img class="h-10 w-10 flex-none rounded-full bg-gray-50" src={user.photoURL} alt="" />
@@ -180,7 +180,7 @@ function CardBlog(props) {
                         <span>{coment} Comment</span>
                     </button>
                 </div>
-            </figcaption>
+            </figcaption> */}
         </div>
     );
 }
