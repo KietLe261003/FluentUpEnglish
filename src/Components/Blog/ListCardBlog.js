@@ -48,8 +48,6 @@ function ListCardBlog() {
             </button>
             {
                 blogs.length>0 && 
-                <div>
-                    {
                         blogs.map((item,index)=>(
                             <CardBlog key={index}
                             id={item.id}
@@ -57,8 +55,6 @@ function ListCardBlog() {
                             datePost={item.datePost}
                              title={item.title} auth={item.auth} content={item.content} like={item.like} coment={item.comment.length} />
                         ))
-                    }
-                </div>
             }
 
         </div>
