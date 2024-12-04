@@ -50,11 +50,8 @@ function ListCardBlog() {
             {
                 blogs.length>0 && 
                 blogs.map((item,index)=>(
-                    <CardBlog key={index}
-                    id={item.id}
-                    hastag={item.hastag}
-                    datePost={item.datePost}
-                        title={item.title} auth={item.auth} content={item.content} like={item.like} coment={item.comment.length} />
+                    <div>{item.title}</div>
+                    
                 ))
             }
 
