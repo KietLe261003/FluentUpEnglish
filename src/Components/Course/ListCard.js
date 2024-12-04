@@ -9,7 +9,7 @@ function ListCard() {
     useEffect(()=>{
         const interval = setInterval(() => {
             setCounter(item => item >= 2 ? 0 : item + 1);
-        }, 3000);
+        }, 1000);
         const unSub = async () =>{
             const c=[];
             const q= query(collection(db,"course"),where("isPublic","==",true));
