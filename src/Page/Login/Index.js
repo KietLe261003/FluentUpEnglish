@@ -7,10 +7,9 @@ import { Link } from "react-router-dom";
 function Login() {
     return (
         <section class="gradient-custom h-[100vh] max-h-[100vh]">
-            <div class="container py-5 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="container py-5 h-100 flex items-center justify-center">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div class="card bg-dark text-white" style={{ borderRadius: '1rem' }}>
+                        <div class=" bg-dark text-white" style={{ borderRadius: '1rem' }}>
                             <div class="card-body p-5 text-center">
                                 <div class="">
                                     <Header/>
@@ -25,7 +24,6 @@ function Login() {
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </section>
     );
