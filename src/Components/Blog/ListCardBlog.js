@@ -33,6 +33,7 @@ function ListCardBlog() {
             data.forEach((index)=>{
                 c.push(index.data());
             })
+            console.log(c);
             setBlogs(c);
         }
         return ()=>{
@@ -48,13 +49,13 @@ function ListCardBlog() {
             </button>
             {
                 blogs.length>0 && 
-                        blogs.map((item,index)=>(
-                            <CardBlog key={index}
-                            id={item.id}
-                            hastag={item.hastag}
-                            datePost={item.datePost}
-                             title={item.title} auth={item.auth} content={item.content} like={item.like} coment={item.comment.length} />
-                        ))
+                blogs.map((item,index)=>(
+                    <CardBlog key={index}
+                    id={item.id}
+                    hastag={item.hastag}
+                    datePost={item.datePost}
+                        title={item.title} auth={item.auth} content={item.content} like={item.like} coment={item.comment.length} />
+                ))
             }
 
         </div>
