@@ -15,7 +15,7 @@ function ListCardBlog() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCounter(item => item >= 2 ? 0 : item + 1);
-        }, 3000);
+        }, 1000);
         //const q = query(collection(db, "blogs"), where("title", "!=", ""));
         // const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
         //     const bl = [];
@@ -50,8 +50,11 @@ function ListCardBlog() {
             {
                 blogs.length>0 && 
                 blogs.map((item,index)=>(
-                    <div>{item.title}</div>
-                    
+                    <CardBlog key={index}
+                    id={item.id}
+                    hastag={item.hastag}
+                    datePost={item.datePost}
+                    title={item.title} auth={item.auth} content={item.content} like={item.like} coment={item.comment.length} />
                 ))
             }
 

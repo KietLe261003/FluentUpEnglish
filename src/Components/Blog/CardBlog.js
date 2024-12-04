@@ -97,7 +97,6 @@ function CardBlog(props) {
         return formattedDate;
     }
     return (
-        user &&
         <div class="px-4 bg-white mb-8 py-8 rounded-3xl mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
             <button onClick={toggleCommentSetting} id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
                 class="
@@ -176,9 +175,7 @@ function CardBlog(props) {
                         <span>{coment} Comment</span>
                     </button>
                 </div>
-
             </figcaption>
-
         </div>
     );
 }
