@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardBlog from "./CardBlog";
 import { useNavigate } from "react-router-dom";
-import { collection, onSnapshot} from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query, where} from "firebase/firestore";
 import { db } from "../../firebase";
 
 function ListCardBlog() {
@@ -17,17 +17,27 @@ function ListCardBlog() {
             setCounter(item => item >= 2 ? 0 : item + 1);
         }, 3000);
         //const q = query(collection(db, "blogs"), where("title", "!=", ""));
-        const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
-            const bl = [];
-            querySnapshot.forEach( async (it) => {
-                bl.push(it.data());
-            });
-            console.log(bl);
-            bl.sort((a,b)=>b.datePost - a.datePost);
-            setBlogs(bl);
-        });
+        // const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
+        //     const bl = [];
+        //     querySnapshot.forEach( async (it) => {
+        //         bl.push(it.data());
+        //     });
+        //     console.log(bl);
+        //     bl.sort((a,b)=>b.datePost - a.datePost);
+        //     setBlogs(bl);
+        // });
+        const unSub = async () =>{
+            const c=[];
+            const q= query(collection(db,"blogs"));
+            const data= await getDocs(q);
+            data.forEach((index)=>{
+                c.push(index.data());
+            })
+            setBlogs(c);
+        }
         return ()=>{
-            unsubscribe();
+            unSub();
+            //unsubscribe();
             clearInterval(interval);
         }
     }, [counter])
