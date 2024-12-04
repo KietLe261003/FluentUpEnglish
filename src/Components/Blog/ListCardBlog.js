@@ -10,7 +10,12 @@ function ListCardBlog() {
         navigate("/Blog/CreateBlog");
     }
     const [blogs,setBlogs]=useState([]);
+    
+    const [counter, setCounter] = useState(1);
     useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 0 : item + 1);
+        }, 3000);
         //const q = query(collection(db, "blogs"), where("title", "!=", ""));
         const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
             const bl = [];
@@ -21,8 +26,11 @@ function ListCardBlog() {
             bl.sort((a,b)=>b.datePost - a.datePost);
             setBlogs(bl);
         });
-        unsubscribe();
-    }, [])
+        return ()=>{
+            unsubscribe();
+            clearInterval(interval);
+        }
+    }, [counter])
     return (
         <div>
             <button onClick={opModal} class="rounded-xl float-right border-2 border-blue-500 px-3 py-3 text-base mb-3 font-medium text-blue-500 transition duration-200 hover:bg-red-600/5 active:bg-red-700/5">
