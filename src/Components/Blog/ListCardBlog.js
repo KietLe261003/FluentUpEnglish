@@ -9,7 +9,7 @@ function ListCardBlog() {
     const opModal = () => {
         navigate("/Blog/CreateBlog");
     }
-    const [blogs,setBlogs]=useState(null);
+    const [blogs,setBlogs]=useState([]);
     useEffect(() => {
         //const q = query(collection(db, "blogs"), where("title", "!=", ""));
         const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
@@ -31,7 +31,7 @@ function ListCardBlog() {
                 Thêm bài viết
             </button>
             {
-                blogs && 
+                blogs.length>0 && 
                 <div>
                     {
                         blogs.map((item,index)=>(
