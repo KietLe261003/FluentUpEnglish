@@ -4,7 +4,12 @@ import { collection, getDocs, query, where} from "firebase/firestore";
 import { db } from "../../firebase";
 function ListCard() {
     const [Course,setCourse]= useState([]);
+    const [counter, setCounter] = useState(1);
+    
     useEffect(()=>{
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 0 : item + 1);
+        }, 3000);
         const unSub = async () =>{
             const c=[];
             const q= query(collection(db,"course"),where("isPublic","==",true));
@@ -16,8 +21,9 @@ function ListCard() {
         }
         return () => {
             unSub();
+            clearInterval(interval);
         };
-    },[])
+    },[counter])
     return (
         <div>
             <h1 style={{textAlign: "center"}}>Xin chào tất cả các bạn</h1>
