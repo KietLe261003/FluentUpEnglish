@@ -16,7 +16,7 @@ function ListCardBlog() {
         const interval = setInterval(() => {
             setCounter(item => item >= 2 ? 0 : item + 1);
         }, 1000);
-        const q = query(collection(db, "blogs"), where("title", "!=", ""));
+        //const q = query(collection(db, "blogs"), where("title", "!=", ""));
         const unsubscribe = onSnapshot(collection(db,"blogs"), (querySnapshot) => {
             const bl = [];
             querySnapshot.forEach( async (it) => {
