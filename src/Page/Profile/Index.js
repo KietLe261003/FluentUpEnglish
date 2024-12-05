@@ -25,7 +25,11 @@ export default function ProfilePage() {
     const [setting,SetSetting]=useState(false);
     const [save,setSave]=useState(false);
     const [listCourse,setListCourse]=useState([]);
+    const [counter, setCounter] = useState(1);
     useEffect(()=>{
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 2 : item + 1);
+        }, 1000);
         const getDetailCouserUser = async ()=>{
             const dt=[];
             const getUser= await getDoc(doc(db,"users",currentUser.uid));
@@ -44,10 +48,11 @@ export default function ProfilePage() {
               });
             return ()=>{
                 unsub();
-                getDetailCouserUser();
+                getDetailCouserUser();   
             }
         }
-    },[currentUser])
+        clearInterval(interval);
+    },[currentUser,counter])
     const checkSave = ()=>{
         setSave(false);
         SetSetting(false);
