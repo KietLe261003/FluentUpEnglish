@@ -149,6 +149,7 @@ export default function LearingType4(props) {
         }
     }
     useEffect(()=>{
+        console.log(active.fileURL);
         setTimeout(()=>{
             setCheckNext(true);
         },3000)
@@ -156,13 +157,16 @@ export default function LearingType4(props) {
     return (
         <div style={{ flex: 0.70, height: 600, padding: 30 }}>
             <div className="pdf-div">
-                <Document file={active.fileURL} onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page
-                        pageNumber={pageNumber}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                    />
-                </Document>
+                {
+                    active.fileURL!=null &&
+                    <Document file={active.fileURL} onLoadSuccess={onDocumentLoadSuccess}>
+                        <Page
+                            pageNumber={pageNumber}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                        />
+                    </Document>
+                }
             </div>
 
             <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
