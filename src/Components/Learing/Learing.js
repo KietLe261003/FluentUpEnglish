@@ -34,8 +34,11 @@ function Learing() {
         //setVideoDuration(duration);
         //console.log(videoDuration);
     };
-
+    const [counter, setCounter] = useState(1);
     useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 0 : item + 1);
+        }, 1000);
         const getChekPass = async () => {
             if (currentUser.uid != null) {
                 const docUser = await getDoc(doc(db, "users", currentUser.uid));
@@ -107,8 +110,9 @@ function Learing() {
             getRoadMap();
             getCourse();
             getChekPass();
+            clearInterval(interval);
         }
-    }, [idActive, idcourse, currentUser])
+    }, [idActive, idcourse, currentUser,counter])
     const loadSumActive = async (id) => {
         const q = query(collection(db, "active"), where("idRoadMap", "==", id));
         const docSnap = await getDocs(q);
