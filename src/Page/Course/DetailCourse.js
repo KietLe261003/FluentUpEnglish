@@ -80,7 +80,7 @@ const DetailCourse = () => {
                     }
                 </div>
                 {
-                    course && <InforCourse course={course} idRoadMap={rmFirst} />
+                    course!==null && <InforCourse course={course} idRoadMap={rmFirst} />
                 }
             </div>
             <div style={{ paddingLeft: 100, paddingRight: 100, padding: 50, backgroundColor: "#CFE9D0" }}>

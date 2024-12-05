@@ -65,7 +65,7 @@ function InforCourse(props) {
         return () => {
             getUser();
         }
-    }, [currentUser, course.id])
+    }, [currentUser, course.id,course])
     const handleApply = async () => {
         if (checkApply === true) {
             const dt = [];
