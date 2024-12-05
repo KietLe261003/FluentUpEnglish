@@ -60,6 +60,7 @@ function DetailBlog() {
             }
         });
         const unSub= onSnapshot(doc(db,"blogs",idBlog),(item)=>{
+            setComment([]);
             if(item.exists())
             {
                 const tmp =item.data().comment;
