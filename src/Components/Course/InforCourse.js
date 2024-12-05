@@ -45,8 +45,12 @@ function InforCourse(props) {
         })
         setComment(dt);
     },[course.comment])
+    const [counter, setCounter] = useState(1);
     useEffect(() => {
         console.log("haha");
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 0 : item + 1);
+        }, 1000);
         const getUser = async () => {
             console.log("Trước khi vào");
             const docSnap = await getDoc(doc(db, "users", currentUser.uid));
@@ -63,7 +67,8 @@ function InforCourse(props) {
             }
         }
         getUser();
-    }, [currentUser, course.id,course])
+        clearInterval(interval);
+    }, [currentUser, course.id,course,counter])
     const handleApply = async () => {
         if (checkApply === true) {
             const dt = [];
