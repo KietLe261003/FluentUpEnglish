@@ -62,6 +62,7 @@ function Learing() {
         const getActive = async () => {
             const docSnap = await getDoc(doc(db, "active", idActive));
             if (docSnap.exists) {
+                console.log(docSnap.data());
                 setActive(docSnap.data());
                 //console.log(docSnap.data().timeUpdate);
             }
