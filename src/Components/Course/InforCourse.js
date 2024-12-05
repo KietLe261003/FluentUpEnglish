@@ -45,12 +45,10 @@ function InforCourse(props) {
         })
         setComment(dt);
     },[course.comment])
-    const [counter, setCounter] = useState(1);
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCounter(item => item >= 2 ? 0 : item + 1);
-        }, 1000);
+        console.log("haha");
         const getUser = async () => {
+            console.log("Trước khi vào");
             const docSnap = await getDoc(doc(db, "users", currentUser.uid));
             const idUser = docSnap.data().id;
             const ref = collection(db, "listCourseUser");
@@ -66,9 +64,8 @@ function InforCourse(props) {
         }
         return () => {
             getUser();
-            clearInterval(interval);
         }
-    }, [currentUser, course.id,counter])
+    }, [currentUser, course.id])
     const handleApply = async () => {
         if (checkApply === true) {
             const dt = [];
