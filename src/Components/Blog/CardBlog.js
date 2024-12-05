@@ -23,8 +23,12 @@ function CardBlog(props) {
   const [user, setUser] = useState(null);
   const [Content, setContent] = useState(content);
   const { currentUser } = useContext(AuthContext);
+  const [counter, setCounter] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((item) => (item >= 2 ? 2 : item + 1));
+    }, 1000);
     const checkLikeed = async () => {
       const docRef = doc(db, "users", currentUser.uid);
       const docSnap = await getDoc(docRef);
@@ -53,8 +57,9 @@ function CardBlog(props) {
     return () => {
       checkLikeed();
       getUser();
+      clearInterval(interval);
     };
-  }, [auth, content, currentUser, id]);
+  }, [auth, content, currentUser, id, counter]);
   const convertHtmlToString = (htmlString) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = htmlString;
