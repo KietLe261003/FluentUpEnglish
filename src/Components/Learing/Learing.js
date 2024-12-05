@@ -37,7 +37,7 @@ function Learing() {
     const [counter, setCounter] = useState(1);
     useEffect(() => {
         const interval = setInterval(() => {
-            setCounter(item => item >= 2 ? 0 : item + 1);
+            setCounter(item => item >= 2 ? 2 : item + 1);
         }, 1000);
         const getChekPass = async () => {
             if (currentUser.uid != null) {
