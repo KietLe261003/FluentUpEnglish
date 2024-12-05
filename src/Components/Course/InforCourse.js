@@ -56,6 +56,7 @@ function InforCourse(props) {
             const ref = collection(db, "listCourseUser");
             const q1 = query(ref, where("IdUser", "==", idUser), where("IdCourse", "==", course.id));
             const docCheck = await getDocs(q1);
+            console.log(docCheck);
             if (!docCheck.empty) {
                 setCheckApply(true);
             }
