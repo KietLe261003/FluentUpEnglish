@@ -97,7 +97,6 @@ function App() {
                 <Learing/>
               </ProtectedRoute>
             }/>
-            <Route path='/Admin1' element={<Admin><ManagerUser/></Admin>}/>
             {/* Admin page */}
             <Route path='/Admin' element={
               <ProtectedRoute>

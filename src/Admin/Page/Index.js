@@ -12,7 +12,11 @@ function Index() {
     const { currentUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [check, setCheck] = useState(null);
+    const [counter, setCounter] = useState(1);
     useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 2 : item + 1);
+        }, 1000);
         const getUser = async () => {
             try {
                 const docRef = doc(db, "users", currentUser.uid);
@@ -40,8 +44,9 @@ function Index() {
         }
         return () => {
             getUser();
+            clearInterval(interval);
         }
-    }, [currentUser, navigate, check])
+    }, [currentUser, navigate, check,counter])
     return (
         check!==null &&
         <div class="flex min-h-screen">
