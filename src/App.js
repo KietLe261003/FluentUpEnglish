@@ -71,7 +71,7 @@ function App() {
   return (
     <div className="App">
         <Routes>
-            <Route path='/*' element={<ProtectedRoute><Layout/></ProtectedRoute> }>
+            <Route path='/' element={<ProtectedRoute><Layout/></ProtectedRoute> }>
               <Route index element={<Home/>}/>
               <Route path='test' element={<Compiler/>}/>
               <Route path='CourseOutline' element={<CourseOutline/>}/>
@@ -98,7 +98,7 @@ function App() {
               </ProtectedRoute>
             }/>
             {/* Admin page */}
-            <Route path='/Admin/*' element={
+            <Route path='/Admin' element={
               <ProtectedRoute>
                   <Admin />
               </ProtectedRoute>
