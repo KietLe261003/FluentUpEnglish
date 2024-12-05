@@ -40,15 +40,20 @@ function LearingType5(props) {
     function randomOrder() {
         return Math.random() - 0.5; // Trả về một số ngẫu nhiên âm hoặc dương
       }
+    const [counter, setCounter] = useState(1);
     useEffect(()=>{
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 2 : item + 1);
+        }, 1000);
         const randomQuestion = ()=>{
             const tmp= active.listQuestion.sort(randomOrder);
             setQuestions(tmp)
         }
         return ()=>{
             randomQuestion();
+            clearInterval(interval);
         }
-    },[active])
+    },[active,counter])
     const updateFinal = async (idUser, currentActive) => {
         const ref = collection(db, "listCourseUser");
         const q1 = query(ref, where("IdUser", "==", idUser), where("IdCourse", "==", idcourse));
@@ -175,7 +180,7 @@ function LearingType5(props) {
                 <button class="btn btn-success float-end" onClick={()=>{setCheckAns(true)}}>Xem đáp án</button>
             </div>
             {
-                questions.map((item,index)=>(
+                questions.length>0 && questions.map((item,index)=>(
                     <div key={index} class="container mt-sm-5 my-1 bg-gray-600 p-5" style={{ borderRadius: 10 }}>
                         <div class="question ml-sm-5 pl-sm-5 pt-2">
                             <div class="py-2 h5"><b>{item.question}</b></div>

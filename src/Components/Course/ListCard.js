@@ -8,7 +8,7 @@ function ListCard() {
     
     useEffect(()=>{
         const interval = setInterval(() => {
-            setCounter(item => item >= 2 ? 0 : item + 1);
+            setCounter(item => item >= 2 ? 2 : item + 1);
         }, 1000);
         const unSub = async () =>{
             const c=[];
