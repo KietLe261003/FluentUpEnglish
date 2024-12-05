@@ -23,6 +23,7 @@ function ItemCourse(props) {
     const item = props.item;
     const [course, setCourse] = useState(null);
     const [active, setActive] = useState(null);
+    const [counter, setCounter] = useState(1);
     const idCourse = item.IdCourse;
     const [modalIsOpen, setIsOpen] = useState(false);
     const navigate= useNavigate();
@@ -33,6 +34,9 @@ function ItemCourse(props) {
         setIsOpen(false);
     }
     useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 2 : item + 1);
+        }, 1000);
         const getCourse = async () => {
             const docSnap = await getDoc(doc(db, "course", item.IdCourse));
             if (docSnap.exists()) {
@@ -72,8 +76,9 @@ function ItemCourse(props) {
         getRoadMap();
         return () => {
             getCourse();
+            clearInterval(interval);
         }
-    }, [item, idCourse])
+    }, [item, idCourse,counter])
     return (
         course &&
         <div className="mb-5">
