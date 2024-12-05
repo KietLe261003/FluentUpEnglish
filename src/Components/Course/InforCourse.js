@@ -62,9 +62,7 @@ function InforCourse(props) {
                 setCheckApply(false);
             }
         }
-        return () => {
-            getUser();
-        }
+        getUser();
     }, [currentUser, course.id,course])
     const handleApply = async () => {
         if (checkApply === true) {
@@ -170,7 +168,7 @@ function InforCourse(props) {
                 }
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
-                <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Thời gian cập nhật</p>
+                <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Giáo viên</p>
                 <div class="flex items-center justify-center">
                     <p class="text-sm leading-none text-gray-600 dark:text-gray-300">{course && course.teacher}</p>
                 </div>
