@@ -153,7 +153,8 @@ export default function LearingType4(props) {
         setTimeout(()=>{
             setCheckNext(true);
         },3000)
-    },[])
+    },[]);
+    console.log(active.fileURL);
     return (
         <div style={{ flex: 0.70, height: 600, padding: 30 }}>
             <div className="pdf-div">
