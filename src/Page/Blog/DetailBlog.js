@@ -24,11 +24,15 @@ function DetailBlog() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [comment,setComment]=useState([]);
     const [showOverlay, setShowOverlay] = useState(false);
+    const [counter, setCounter] = useState(1);
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
         setShowOverlay(!showOverlay);
     };
     useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 2 : item + 1);
+        }, 1000);
         const checkLikeed = async () => {
             const docRef = doc(db, "users",currentUser.uid);
             const docSnap = await getDoc(docRef);
@@ -67,8 +71,9 @@ function DetailBlog() {
         return () => {
             getBlog();
             unSub();
+            clearInterval(interval);
         }
-    }, [idBlog,currentUser])
+    }, [idBlog,currentUser,counter])
     const [inserted, setInserted] = useState(false);
     const editorConfiguration1 = {
         toolbar: {

@@ -29,7 +29,7 @@ function CardBlog(props) {
       const docRef = doc(db, "users", currentUser.uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data().likeBlog + " " + id);
+        //console.log("Document data:", docSnap.data().likeBlog + " " + id);
         const us = docSnap.data().likeBlog;
         if (us !== undefined) {
           const lk = us.find((item) => item === id);
