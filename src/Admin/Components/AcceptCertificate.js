@@ -45,18 +45,18 @@ function AcceptCertificate(props) {
     }, [idCourse])
     const form = useRef();
     const form1 = useRef();
-    const sendEmail = async () => {
-        try {
-            // Gửi email với dữ liệu từ form
-            await emailjs.sendForm('service_8vqpeod', 'template_uqhpzav', form.current, {
-                publicKey: 'G8u7WveoEPjHb7bPA',
-            });
+    // const sendEmail = async () => {
+    //     try {
+    //         // Gửi email với dữ liệu từ form
+    //         await emailjs.sendForm('service_8vqpeod', 'template_uqhpzav', form.current, {
+    //             publicKey: 'G8u7WveoEPjHb7bPA',
+    //         });
 
-            console.log('SUCCESS!');
-        } catch (error) {
-            console.log('FAILED...', error.text);
-        }
-    };
+    //         console.log('SUCCESS!');
+    //     } catch (error) {
+    //         console.log('FAILED...', error.text);
+    //     }
+    // };
 
 
     const handleAccept = async () => {
@@ -74,17 +74,6 @@ function AcceptCertificate(props) {
                 await updateDoc(doc(db, "certificate", idCourse), {
                     users: data
                 })
-
-                const formData = new FormData();
-                formData.append('user_name', inforUser.name);
-                formData.append('user_email', inforUser.email);
-                formData.append('Name_Course', course.nameCourse);
-                formData.append('Address', inforUser.address);
-                formData.append('Phone_Number', inforUser.phoneNumber);
-
-                // Gửi email với dữ liệu từ form
-                await sendEmail(formData);
-
                 alert("Cập nhật thành công !");
                 window.location.reload();
             } else {
@@ -112,19 +101,6 @@ function AcceptCertificate(props) {
             await updateDoc(doc(db, "certificate", idCourse), {
                 users: data
             })
-            emailjs
-                .sendForm('service_8vqpeod', 'template_k7j371r', form1.current, {
-                    publicKey: 'G8u7WveoEPjHb7bPA',
-                })
-                .then(
-                    () => {
-                        closeModal();
-                        console.log('SUCCESS!');
-                    },
-                    (error) => {
-                        console.log('FAILED...', error.text);
-                    },
-                );
             alert("Cập nhật thành công !");
             window.location.reload();
         }
@@ -184,7 +160,7 @@ function AcceptCertificate(props) {
                             </button>
                         </div>
             }
-            {
+            {/* {
                 course &&
                 <form ref={form} hidden onSubmit={sendEmail}>
                     <input type="text" value={inforUser.name} name="user_name" />
@@ -194,7 +170,7 @@ function AcceptCertificate(props) {
                     <input type="text" value={inforUser.phoneNumber} name="Phone_Number" />
                     <input type="submit" value="Send" />
                 </form>
-            }
+            } */}
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
