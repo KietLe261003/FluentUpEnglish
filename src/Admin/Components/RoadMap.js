@@ -21,8 +21,11 @@ function RoadMap(props) {
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
     };
-
+    const [counter, setCounter] = useState(1);
     useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(item => item >= 2 ? 2 : item + 1);
+        }, 1000);
         const getRoadMap = async () => {
             const dt = [];
             const q = query(
@@ -37,8 +40,9 @@ function RoadMap(props) {
         }
         return () => {
             getRoadMap();
+            clearInterval(interval);
         }
-    }, [IdRoadMap])
+    }, [IdRoadMap,counter])
     const handleDelete = async (id,idRoadMap) => {
         const choice = window.confirm(
             "Bạn có chắc muốn xóa hoạt động này không"
