@@ -9,8 +9,10 @@ export default function DataTable(props) {
   const {currentUser}=useContext(AuthContext);
   const [users, setUsers] = useState([]);
   const [allUser,setAllUser]=useState([]);
+  const [counter, setCounter] = useState(1);
   const navigate = useNavigate();
   const fetch = async () => {
+    
     const querySnapshot = await getDocs(collection(db, "users"));
     const data = [];
     querySnapshot.forEach((doc) => {
@@ -29,10 +31,14 @@ export default function DataTable(props) {
     setAllUser(data);
   }
   useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter(item => item >= 2 ? 2 : item + 1);
+    }, 1000);
     return () => {
       fetch();
+      clearInterval(interval);
     }
-  }, [])
+  }, [counter])
 
   const handleRole = async (item) => {
     try {
