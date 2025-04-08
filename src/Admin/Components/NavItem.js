@@ -3,17 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 function NavItem(props) {
-    const icon=props.icon;
-    const title=props.title;
-    const link =props.link;
+    const { icon, title, link } = props;
     return (
-        <Link to={link} class="text-blue-400 flex relative px-4 hover:bg-gray-700 cursor-pointer m-3">
-            <div class="mr-4">
-                <svg class="fill-current h-5 w-5" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <FontAwesomeIcon icon={icon}/>
-                </svg>
+        <Link 
+            to={link} 
+            className="text-green-300 flex relative px-4 hover:bg-green-800 cursor-pointer m-3"
+        >
+            <div className="mr-4">
+                <FontAwesomeIcon icon={icon} className="h-5 w-5" />
             </div>
-            <div class="flex-auto my-1">
+            <div className="flex-auto my-1">
                 <span>{title}</span>
             </div>
         </Link>

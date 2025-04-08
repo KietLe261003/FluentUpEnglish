@@ -1,30 +1,34 @@
 import React from "react";
 import TableUser from '../Components/TableUser.js';
 import { Button } from "flowbite-react";
+
 function ManagerUser() {
-    const column = [
-        { field: "id", headerName: "ID", width: 200 },
-        { field: "name", headerName: "Họ và tên", width: 400 },
+    const columns = [
+        { field: "id", headerName: "ID Người Dùng", width: 200 },
+        { field: "name", headerName: "Họ và Tên", width: 250 },
         { field: "email", headerName: "Email", width: 300 },
-        { field: "birthDate", headerName: "Ngày sinh", width: 100 },
-        { field: "address", headerName: "Địa chỉ", width: 100 },
-        { field: "role", headerName: "Quyền", width: 100 },
+        { field: "birthDate", headerName: "Ngày Sinh", width: 120 },
+        { field: "address", headerName: "Địa Chỉ", width: 200 },
+        { field: "role", headerName: "Vai Trò", width: 120 },
         {
-            field: "btn", headerName: "", width: 345,
-            renderCell: () => {
-                return (
-                    <div style={{display: "flex", flexDirection: "row"}}>
-                        <Button color="blue">Chi tiết</Button>
-                        <Button color="failure">Xóa</Button>
-                    </div>
-                );
-            },
+            field: "actions",
+            headerName: "Thao Tác",
+            width: 300,
+            renderCell: (item) => (
+                <div className="flex gap-2">
+                    <Button color="blue" size="sm">Chi Tiết</Button>
+                    <Button color="failure" size="sm">Xóa</Button>
+                </div>
+            ),
         },
-    ]
+    ];
+
     return (
-        <div>
-            ManagerUser
-            <TableUser column={column}></TableUser>
+        <div className="p-6 bg-green-50 min-h-screen">
+            <h1 className="text-3xl font-bold text-green-800 mb-6">Quản Lý Người Dùng</h1>
+            <div className="bg-white rounded-lg shadow-lg p-4">
+                <TableUser columns={columns} />
+            </div>
         </div>
     );
 }

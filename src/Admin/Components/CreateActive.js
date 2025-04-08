@@ -155,13 +155,13 @@ function CreateActive(props) {
                         >
                             Nộp file
                         </button>
-                        <button
+                        {/* <button
                             onClick={() => setOpenTab(3)}
                             className={`flex-1 py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-blue transition-all duration-300 ${openTab === 3 ? "bg-blue-600 text-white" : ""
                                 }`}
                         >
                             Code
-                        </button>
+                        </button> */}
                         <button
                             onClick={() => setOpenTab(4)}
                             className={`flex-1 py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-blue transition-all duration-300 ${openTab === 4 ? "bg-blue-600 text-white" : ""
