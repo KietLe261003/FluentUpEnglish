@@ -1,9 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
+import { ChatService } from "../../../Service/ChatService";
 
 const ChatBot = ({ closeModal }) => {
+  const [message, setMessage] = useState("");
+  const [dataMessage, setDataMessage] = useState([
+    {
+      owner: "bot",
+      message: "How can I help you today?",
+    },
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSendMessage = async () => {
+    if (!message.trim()) return; // Prevent sending empty messages
+
+    try {
+      // Add user message to chat
+      const dataUser = {
+        owner: "person",
+        message: message,
+      };
+      setDataMessage((prev) => [...prev, dataUser]);
+      setMessage(""); // Clear input
+      setIsLoading(true);
+
+      // Call API
+      const res = await ChatService.generateChat(message);
+
+      // Add bot response to chat
+      const dataChat = {
+        owner: "bot",
+        message: res,
+      };
+      setDataMessage((prev) => [...prev, dataChat]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // Optionally add error message to chat
+      setDataMessage((prev) => [
+        ...prev,
+        {
+          owner: "bot",
+          message: "Sorry, something went wrong. Please try again.",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex w-full h-[500px]">
-      <div className=" w-full border flex flex-col rounded-t-xl h-full">
+      <div className="w-full border flex flex-col rounded-t-xl h-full">
         {/* Header */}
         <header className="w-full bg-blue-500 flex justify-between px-2 py-1 rounded-t-lg items-center">
           <h2 className="text-sm font-semibold text-white flex items-center space-x-2">
@@ -38,73 +85,90 @@ const ChatBot = ({ closeModal }) => {
           </span>
         </header>
         <div className="flex flex-col justify-between h-full">
-          {/* Nội dung chat */}
-          <div className="flex flex-col gap-4 p-2 select-none">
-            {/* Tin nhắn từ chatbot */}
-            <div className="flex items-end">
-              <div className="rounded bg-blue-500 w-8 aspect-square p-1.5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="text-white"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                  />
-                </svg>
+          {/* Chat content */}
+          <div className="flex flex-col gap-4 p-2 select-none overflow-y-auto max-h-[80%]">
+            {dataMessage.map((item, index) => (
+              <div
+                key={index}
+                className={
+                  item.owner === "bot"
+                    ? "flex items-end"
+                    : "flex items-end flex-row-reverse"
+                }
+              >
+                <div className="rounded bg-blue-500 w-8 aspect-square p-1.5">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="text-white"
+                  >
+                    <path
+                      fill="currentColor"
+                      d={
+                        item.owner === "bot"
+                          ? "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                          : "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                      }
+                    />
+                  </svg>
+                </div>
+                <p className="mx-2 p-2 rounded bg-gray-200 leading-4 text-sm">
+                  {item.message}
+                </p>
               </div>
-              <p className="mx-2 p-2 rounded bg-gray-200 leading-4 text-sm">
-                Hi there 👋
-                <br />
-                How can I help you today?
-              </p>
-            </div>
-
-            {/* Tin nhắn từ người dùng (giả lập) */}
-            <div className="flex items-end flex-row-reverse">
-              <div className="rounded bg-blue-500 w-8 aspect-square p-1.5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="text-white"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                  />
-                </svg>
-              </div>
-              <p className="mx-2 p-2 rounded bg-gray-200 leading-4 text-sm">
-                Hi there 👋
-                <br />
-                How can I help you today?
-              </p>
-            </div>
+            ))}
           </div>
 
-          {/* Input và nút gửi */}
+          {/* Input and send button */}
           <div className="flex items-center justify-center my-2 mx-1">
             <textarea
               id="chat"
               rows="1"
               className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Your message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              disabled={isLoading}
             ></textarea>
             <button
+              onClick={handleSendMessage}
               type="submit"
-              className="flex justify-center items-center aspect-square h-9 bg-blue-500 p-2 text-white rounded-full cursor-pointer hover:bg-blue-600"
+              className="flex justify-center items-center aspect-square h-9 bg-blue-500 p-2 text-white rounded-full cursor-pointer hover:bg-blue-600 disabled:bg-blue-300"
+              disabled={isLoading || !message.trim()}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
-              >
-                <path
-                  fill="currentColor"
-                  d="M2.01 21L23 12L2.01 3V10L17 12L2.01 14V21Z"
-                />
-              </svg>
+              {isLoading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.818 3.146 7.955l2.854-2.664z"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M2.01 21L23 12L2.01 3V10L17 12L2.01 14V21Z"
+                  />
+                </svg>
+              )}
             </button>
           </div>
         </div>

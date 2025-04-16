@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Component(props) {
   const course=props.course;
-  console.log(course);
   const navigate= useNavigate();
   return (
     course && 

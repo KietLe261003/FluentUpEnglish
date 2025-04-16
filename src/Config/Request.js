@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Tạo một instance axios với cấu hình mặc định
 export const request = axios.create({
-    baseURL: "http://localhost:8080/api/", // URL từ file cấu hình môi trường
+    baseURL: "http://localhost:8080/ai", // URL từ file cấu hình môi trường
     timeout: 0, // Không giới hạn thời gian request
     headers: { 'X-Custom-Header': 'foobar' } // Header mặc định
 });
