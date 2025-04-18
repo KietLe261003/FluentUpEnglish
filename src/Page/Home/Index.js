@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import './Home.css';
 import Slider from '../../Components/Home/Slider';
 import Course from '../../Components/Home/Course';
-import IntroVideo from '../../Components/Home/IntroVideo';
-import ListNews from '../../Components/Home/ListNews';
 import Utilities from '../../Components/Home/Utilities';
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -63,8 +61,6 @@ function Home() {
 
             <Utilities></Utilities>
             <div style={{marginBottom: '30px'}}></div>
-            <ListNews></ListNews>
-            <IntroVideo></IntroVideo>
             
         </div>
     );

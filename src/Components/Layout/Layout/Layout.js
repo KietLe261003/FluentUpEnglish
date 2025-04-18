@@ -7,7 +7,6 @@ import {
   faNewspaper,
   faBookOpen,
   faUser,
-  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet } from "react-router-dom";
 import { signOut } from "firebase/auth";
@@ -133,7 +132,7 @@ function Layout() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg w-[50%] shadow-lg transform transition-all duration-300 ease-in-out">
+          <div className="bg-white rounded-lg w-[70%] shadow-lg transform transition-all duration-300 ease-in-out">
             <ChatBot closeModal={closeModal}></ChatBot>
           </div>
         </div>

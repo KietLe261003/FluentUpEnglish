@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChatService } from "../../../Service/ChatService";
+import { formatMessage } from "../../../Config/FormatMessage";
 
 const ChatBot = ({ closeModal }) => {
   const [message, setMessage] = useState("");
+  const chatContainerRef = useRef(null);
+
   const [dataMessage, setDataMessage] = useState([
     {
       owner: "bot",
@@ -47,9 +50,15 @@ const ChatBot = ({ closeModal }) => {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [dataMessage]);
 
   return (
-    <div className="flex w-full h-[500px]">
+    <div className="flex w-full h-[800px]">
       <div className="w-full border flex flex-col rounded-t-xl h-full">
         {/* Header */}
         <header className="w-full bg-blue-500 flex justify-between px-2 py-1 rounded-t-lg items-center">
@@ -84,9 +93,12 @@ const ChatBot = ({ closeModal }) => {
             </svg>
           </span>
         </header>
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between h-[750px]">
           {/* Chat content */}
-          <div className="flex flex-col gap-4 p-2 select-none overflow-y-auto max-h-[80%]">
+          <div
+            ref={chatContainerRef}
+            className="flex flex-col gap-4 p-2 select-none overflow-y-auto max-h-[90%] "
+          >
             {dataMessage.map((item, index) => (
               <div
                 key={index}
@@ -113,12 +125,20 @@ const ChatBot = ({ closeModal }) => {
                   </svg>
                 </div>
                 <p className="mx-2 p-2 rounded bg-gray-200 leading-4 text-sm">
-                  {item.message}
+                  {item.owner === "bot"
+                    ? formatMessage(item.message)
+                        .split("\n")
+                        .map((line, index) => (
+                          <span key={index}>
+                            {line}
+                            <br />
+                          </span>
+                        ))
+                    : item.message}
                 </p>
               </div>
             ))}
           </div>
-
           {/* Input and send button */}
           <div className="flex items-center justify-center my-2 mx-1">
             <textarea

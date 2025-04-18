@@ -9,8 +9,7 @@ function Footer() {
             <footer
                 class="text-center text-lg-start text-dark"
                 style={{backgroundColor: "#ECEFF1"}}
-            >
-                
+            >     
                 <section
                     class="d-flex justify-content-between p-4 text-white"
                     style={{backgroundColor: "#21D192"}}
@@ -19,9 +18,6 @@ function Footer() {
                     <div class="me-5">
                         <span>Get connected with us on social networks:</span>
                     </div>
-                    
-
-                   
                     <div>
                         <a href="/" class="text-white me-4">
                             <FontAwesomeIcon icon={faFacebook} />
@@ -44,9 +40,6 @@ function Footer() {
                     </div>
                     
                 </section>
-                
-
-                
                 <section class="">
                     <div class="container text-center text-md-start mt-5">
                 
@@ -124,7 +117,6 @@ function Footer() {
                 </section>
             </footer>
         </div>
-
     );
 }
 export default Footer;

@@ -1,5 +1,5 @@
-import React, { useContext} from 'react';
-import { Routes, Route, Navigate} from 'react-router-dom';
+import React, { useContext, useEffect} from 'react';
+import { Routes, Route, Navigate, useLocation} from 'react-router-dom';
 
 import './App.css';
 import Layout from './Components/Layout/Layout/Layout';
@@ -50,24 +50,10 @@ function App() {
     }
     return children;
   }
-  // async function getUser() {
-  //   const docSnap = await getDoc(doc(db,"users",currentUser.uid));
-  //   if(docSnap.exists())
-  //   setUserInfor(docSnap.data());
-  //   else
-  //   console.log("Not found user");
-  // }
-  // const ProtectedRouteAdmin = ({children}) => {
-  //   if(!currentUser)
-  //   {
-  //     return <Navigate to="/Login"/>
-  //   }
-  //   if(inforUser.role==="admin")
-  //   return children;
-  //   else
-  //   return <Navigate to="/Login"/>
-  
-  // }
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <div className="App">
         <Routes>
